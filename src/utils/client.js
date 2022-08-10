@@ -29,7 +29,12 @@ const initializeClient = () => {
       switch (command) {
         case process.env.COMMAND_VERIFY:
           var username = parts.shift()?.toLowerCase();
-          if (!username) break;
+          if (!username) {
+            await message.reply({
+              content: `\`Error\` You must add value with command to execute!`
+            })
+            break;
+          }
 
           if (!!(await fetchUser(username))) {
             await message.reply(
@@ -97,7 +102,12 @@ const initializeClient = () => {
           }
 
           var username = parts.shift()?.toLowerCase();
-          if (!username) break;
+          if (!username) {
+            await message.reply({
+              content: `\`Error\` You must add value with command to execute!`
+            })
+            break;
+          }
 
           try {
             const user = await fetchUser(username);
@@ -138,7 +148,12 @@ const initializeClient = () => {
           }
 
           var username = parts.shift()?.toLowerCase();
-          if (!username) break;
+          if (!username) {
+            await message.reply({
+              content: `\`Error\` You must add value with command to execute!`
+            })
+            break;
+          }
 
           try {
             const user = await fetchUser(username);
