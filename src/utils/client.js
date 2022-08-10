@@ -28,7 +28,7 @@ const initializeClient = () => {
 
       switch (command) {
         case process.env.COMMAND_VERIFY:
-          var username = parts.shift().toLowerCase();
+          var username = parts.shift()?.toLowerCase();
           if (!username) break;
 
           if (!!(await fetchUser(username))) {
@@ -96,7 +96,7 @@ const initializeClient = () => {
             break;
           }
 
-          var username = parts.shift().toLowerCase();
+          var username = parts.shift()?.toLowerCase();
           if (!username) break;
 
           try {
@@ -137,7 +137,7 @@ const initializeClient = () => {
             break;
           }
 
-          var username = parts.shift().toLowerCase();
+          var username = parts.shift()?.toLowerCase();
           if (!username) break;
 
           try {
