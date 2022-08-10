@@ -168,7 +168,7 @@ const initializeClient = () => {
     }
   });
 
-  client.login(process.env.BOT_ACCESS_TOKEN);
+  client.login(process.env.VERIFY_TOKEN);
 };
 
 module.exports = {
