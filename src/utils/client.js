@@ -38,7 +38,7 @@ const initializeClient = () => {
 
           if (!!(await fetchUser(username))) {
             await message.reply(
-              `\`${username}\` is already saved in the database.`
+              `\`${username}\` is already in the que.`
             );
             break;
           }
