@@ -204,7 +204,7 @@ const initializeClient = () => {
               await updateSuspendedUser(
                 username,
                 true,
-                `${message.author.tag} <@${message.author.id}>`,
+                `${message.author.tag}`,
                 message.author.id,
               );
               await message.reply(`\`${username}\` has been suspended by <@${message.author.id}>`);
@@ -253,7 +253,7 @@ const initializeClient = () => {
                 await updateSuspendedUser(
                   username,
                   false,
-                  `${message.author.tag} <@${message.author.id}>`,
+                  `${message.author.tag}`,
                   message.author.id,
                 );
                 await message.reply(`\`${username}\` has been unsuspended!`);
