@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { SuspendedUserModel } = require("../models/SuspendedUser");
 const { UserModel } = require("../models/User");
 
 const connectDatabase = async () => {

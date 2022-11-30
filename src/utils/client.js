@@ -1,6 +1,6 @@
 const { Client, GatewayIntentBits } = require("discord.js");
-const { isAdmin } = require("./../utils/helper");
-const { updateUser, fetchUser, hasOtherRequest } = require("./../utils/db");
+const { isAdmin, isModerator } = require("./../utils/helper");
+const { updateUser, fetchUser, hasOtherRequest, fetchSuspendedUser, updateSuspendedUser } = require("./../utils/db");
 
 let users = [];
 
@@ -263,7 +263,7 @@ const initializeClient = () => {
             }
 
           } catch(err) {}
-          
+
           break;
   
         case process.env.COMMAND_CHECK:
