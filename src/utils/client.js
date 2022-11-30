@@ -179,6 +179,121 @@ const initializeClient = () => {
           break;
         default:
           break;
+        
+        case process.env.COMMAND_KICK:
+          if(!isModerator(message.member)) {
+            await message.reply({
+              content: "You are not authorized to use this command!",
+            });
+            break;
+          }
+
+          var username = parts.shift()?.toLowerCase();
+
+          if(!username) {
+            await message.reply({
+              content: "`Error` You must add value with command to execute!"
+            });
+            break;
+          }
+
+          try {
+            const user = await fetchSuspendedUser(username);
+
+            if(!user) {
+              await updateSuspendedUser(
+                username,
+                true,
+                `${message.author.tag} <@${message.author.id}>`,
+                message.author.id,
+              );
+              await message.reply(`\`${username}\` has been suspended by <@${message.author.id}>`);
+            } else {
+              if(user.status === true) {
+                await message.reply(`\`Error\` ${username} is already suspended by <@${user.statusUpdateById}>`);
+              } else {
+                await updateSuspendedUser(
+                  username,
+                  true,
+                  `${message.author.tag} <@${message.author.id}>`,
+                  message.author.id,
+                );
+                await message.reply(`\`${username}\` has been suspended by <@${message.author.id}>`);
+              }
+            }
+
+          } catch(err) {}
+
+          break;
+  
+        case process.env.COMMAND_UNBAN:
+          if(!isModerator(message.member)) {
+            await message.reply({
+              content: "You are not authorized to use this command!",
+            });
+            break;
+          }
+
+          var username = parts.shift()?.toLowerCase();
+
+          if(!username) {
+            await message.reply({
+              content: "`Error` You must add value with command to execute!"
+            });
+            break;
+          }
+
+          try {
+            const user = await fetchSuspendedUser(username);
+
+            if(!user) {
+              await message.reply(`\`Error\` username \`${username}\` is not found`);
+            } else {
+              if(user.status === true) {
+                await updateSuspendedUser(
+                  username,
+                  false,
+                  `${message.author.tag} <@${message.author.id}>`,
+                  message.author.id,
+                );
+                await message.reply(`\`${username}\` has been unsuspended!`);
+              } else {
+                await message.reply(`\`Error\` \`${username}\` is not suspended`);
+              }
+            }
+
+          } catch(err) {}
+          
+          break;
+  
+        case process.env.COMMAND_CHECK:
+          if(!isModerator(message.member)) {
+            await message.reply({
+              content: "You are not authorized to use this command!",
+            });
+            break;
+          }
+
+          var username = parts.shift()?.toLowerCase();
+
+          if(!username) {
+            await message.reply({
+              content: "`Error` You must add value with command to execute!"
+            });
+            break;
+          }
+
+          try {
+            const user = await fetchSuspendedUser(username);
+
+            if(user) {
+              user.status ? message.reply(`\`${username}\` is suspended by <@${user.statusUpdateById}>`) : message.reply(`\`${username}\` is not suspended`);
+            } else {
+              message.reply(`\`Error\` username \`${username}\` is not found`);
+            }
+          } catch (err) {}
+
+          break;
       }
     }
   });

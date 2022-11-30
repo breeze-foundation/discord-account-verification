@@ -73,9 +73,58 @@ const updateUser = async (
   }
 };
 
+const fetchSuspendedUser = async (username) => {
+  try {
+    const user = await SuspendedUserModel.findOne({ username });
+    return user;
+  } catch (err) {
+    console.error(
+      `An error occured while fetching the user ${username}.`,
+      err
+    );
+    return false;
+  }
+}
+
+const updateSuspendedUser = async (
+  username,
+  status,
+  statusUpdateBy,
+  statusUpdateById
+) => {
+  try {
+    await SuspendedUserModel.findOneAndUpdate(
+      { username },
+      {
+        username,
+        status,
+        statusUpdateBy,
+        statusUpdateById,
+        statusUpdateTime: new Date()
+          .toString()
+          .split(" ")
+          .splice(0, 5)
+          .join(" "),
+      },
+      {
+        new: true,
+        upsert: true,
+      }
+    );
+
+    console.log(`Updated the suspension status of user ${username} as ${status}.`);
+    return true;
+  } catch (err) {
+    console.error("An error occurred while updating the user's suspension status!", err);
+    return false;
+  }
+}
+
 module.exports = {
   connectDatabase,
   fetchUser,
   hasOtherRequest,
   updateUser,
+  fetchSuspendedUser,
+  updateSuspendedUser,
 };
